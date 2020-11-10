@@ -1,0 +1,31 @@
+﻿@model IEnumerable<storeAdmin.Models.Product>
+
+@{
+    ViewData["Title"] = "All Products";
+}
+
+<h1>All Products</h1>
+
+@foreach (var item in Model)
+{
+    <div class="card" style="width: 34rem;float:left;margin:5px;margin-bottom:100px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <img src="@Html.DisplayFor(modelItem => item.image)" height="300px" class="card-img-top" alt="...">
+                </div>
+                <div class="col-sm">
+                    <h5 class="card-title">@Html.DisplayNameFor(model => model.name): @Html.DisplayFor(modelItem => item.name)</h5>
+                    <h6 class="card-title">@Html.DisplayFor(modelItem => item.title)</h6>
+                    <p class="card-text">@Html.DisplayNameFor(model => model.price): @Html.DisplayFor(modelItem => item.price)</p>
+                    <p class="card-text">@Html.DisplayNameFor(model => model.amunt): @Html.DisplayFor(modelItem => item.amunt)</p>
+                    <p class="card-text" style="font-size: 10px">Last updated: @Html.DisplayFor(modelItem => item.date)</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body" style="height:220px">
+            <p class="card-text">@Html.DisplayFor(modelItem => item.productContent)</p>
+        </div>
+    </div>
+}

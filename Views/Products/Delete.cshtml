@@ -1,0 +1,39 @@
+﻿@model storeAdmin.Models.Product
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <div class="card" style="width: 34rem;float:left;margin:5px;margin-bottom:100px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <img src="@Html.DisplayFor(model => model.image)" height="300px" class="card-img-top" alt="...">
+                </div>
+                <div class="col-sm">
+                    <h5 class="card-title">@Html.DisplayNameFor(model => model.name): @Html.DisplayFor(model => model.name)</h5>
+                    <h6 class="card-title">@Html.DisplayFor(model => model.title)</h6>
+                    <p class="card-text">@Html.DisplayNameFor(model => model.price): @Html.DisplayFor(model => model.price)</p>
+                    <p class="card-text">@Html.DisplayNameFor(model => model.amunt): @Html.DisplayFor(model => model.amunt)</p>
+                    <p class="card-text" style="font-size: 10px">Last updated: @Html.DisplayFor(model => model.date)</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body" style="height:220px">
+            <p class="card-text">@Html.DisplayFor(model => model.productContent)</p>
+        </div>
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="id" />
+            <input type="submit" value="Delete" class="btn btn-outline-danger" />
+            <a class="btn btn-outline-primary" asp-controller="Categoties" asp-action="Index">Back to Catesories</a>
+        </form>
+    </div>
+
+</div>

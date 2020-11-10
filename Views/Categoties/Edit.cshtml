@@ -1,0 +1,82 @@
+﻿@model storeAdmin.Models.Categoty
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Categoty</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="id" />
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input id="name" asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="description" class="control-label"></label>
+                <input id="description" asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display:none">
+                <label asp-for="image" class="control-label"></label>
+                <input id="imageBefor" asp-for="image" class="form-control" />
+                <span asp-validation-for="image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input id="file" type="file" />
+            </div>
+            
+        </form>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<img id="lodeImage" />
+<div>
+    <button class="btn btn-outline-primary" onclick="senddata()">Save</button>
+    <a class="btn btn-outline-primary" asp-action="Index">Back to List</a>
+</div>
+<script>
+    var imageEdit
+    imageEdit = document.getElementById('imageBefor').value
+    document.getElementById('lodeImage').src = document.getElementById('imageBefor').value
+    document.getElementById('file').addEventListener('change', (fileInput) => {
+        if (fileInput.target.files && fileInput.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = ((e) => {
+                document.getElementById('lodeImage').src = e.target['result'].toString();
+                imageEdit = e.target['result'].toString()
+            })
+            reader.readAsDataURL(fileInput.target.files[0]);
+        }
+        console.log(document.getElementById('file').nodeValue)
+        console.log(event)
+    })
+
+    function senddata() {
+
+        $.ajax({
+            type: "PUT",
+            url:"/CatApi/"+ '@ViewData["catId"]',
+            data: JSON.stringify({ "id": parseInt('@ViewData["catId"]'), "name": document.getElementById('name').value, "description": document.getElementById('description').value, "image": imageEdit }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) { alert("success") },
+            error: function (errMsg) {
+                alert("error");
+            }
+        });
+    }
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
